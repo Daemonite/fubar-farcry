@@ -88,16 +88,17 @@
 			<cfloop collection="#stTargets#" item="targetid">
 				<cfif arraylen(stTargets[targetid].errors)>
 					<misc:sort values="#stTargets[targetid].errors#">
-						<cfset sendback = listfirst(value1," ") - listfirst(value2," ") />
+						<cfset sendback = listfirst(value2," ") - listfirst(value1," ") />
 					</misc:sort>
 					
 					<cfset title = stConfig.applications[i].name & " Errors" />
 					<cfset text = "" />
 					<cfloop from="1" to="#arraylen(result)#" index="i">
 						<cfif not len(title) + len(text) + len(left(result[i],50)) + 4 gt 512>
-							<cfset text = listappend(text,left(result[i],50),", #chr(13)##chr(10)#") />
+							<cfset text = listappend(text,left(result[i],50),", ") />
 						</cfif>
 					</cfloop>
+					<cfset text = rereplace(text,",(\d)",", \1","ALL") />
 					<cfset html = arraytolist(result,"<br>") />
 					
 					<cfswitch expression="#stUsers[targetid].targettype#">
@@ -121,4 +122,5 @@
 		</cfif>
 	</cfloop>
 </cfif>
+
 <cfsetting enablecfoutputonly="false" />
