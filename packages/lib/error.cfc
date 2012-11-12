@@ -32,7 +32,9 @@
 			<cfif isdefined("application.sysinfo.engine")>
 				<cfset arguments.data["engine"] = application.sysinfo.engine />
 			</cfif>
-			<cfset arguments.data["sessionid"] = session.sessionID />
+            <cfif isdefined("application.sessionid")>
+            	<cfset arguments.data["sessionid"] = session.sessionID />
+            </cfif>
 			<cfset arguments.data["datetimeorderable"] = dateformat(arguments.data.datetime,"yyyy-mm-dd") & " " & timeformat(arguments.data.datetime,"HH:mm:ss") />
 			<cfset arguments.data["datetime"] = dateformat(arguments.data["datetime"],"mmmm, dd yyyy") & " " & timeformat(arguments.data["datetime"],"HH:mm:ss")>
 			
